@@ -1,6 +1,6 @@
 mod args;
 
-use std::{path::PathBuf, str::FromStr, fs::File};
+use std::{fs::File, path::PathBuf, str::FromStr};
 
 use args::Args;
 use clap::StructOpt;
@@ -25,7 +25,8 @@ fn main() {
     let mut input_bytes: Vec<u8> = input_rgba.as_bytes().iter().map(|x| *x).collect();
 
     let mut output_file = File::create(output_path).unwrap();
-    let mut encoder = gif::Encoder::new(&mut output_file, width as u16, height as u16, &[]).unwrap();
+    let mut encoder =
+        gif::Encoder::new(&mut output_file, width as u16, height as u16, &[]).unwrap();
     let frame = gif::Frame::from_rgba(width as u16, height as u16, &mut input_bytes);
     encoder.write_frame(&frame).unwrap();
 }
